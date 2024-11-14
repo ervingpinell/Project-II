@@ -1,0 +1,65 @@
+﻿@model Project_II.Models.Dto.ContactDto
+
+@{
+    ViewBag.Title = "SearchByEmail";
+}
+
+<h2>Search By Email</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.First_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.First_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Last_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Last_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Client_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
