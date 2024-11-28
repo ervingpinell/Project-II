@@ -5,23 +5,28 @@
 <h2>Contact Management</h2>
 
 <p>
-    <!-- Botón para mostrar todos los contactos -->
-    @Html.ActionLink("Mostrar Todos los Contactos", "ShowContacts", null, new { @class = "btn btn-primary", role = "button" })
+    <!-- Button to show all contacts -->
+    @Html.ActionLink("Show All Contacts", "ShowContacts", null, new { @class = "btn btn-primary", role = "button" })
 </p>
 
 <p>
-    <!-- Botón para crear un nuevo contacto -->
-    @Html.ActionLink("Crear un Nuevo Contacto", "Create", null, new { @class = "btn btn-success", role = "button" })
+    <!-- Button to create a new contact -->
+    @Html.ActionLink("Create a New Contact", "Create", null, new { @class = "btn btn-success", role = "button" })
 </p>
 
 <p>
-    <!-- Formulario para buscar contacto por email -->
+    <!-- Button to show all payments -->
+    @Html.ActionLink("Show All Payments", "ShowPayments", null, new { @class = "btn btn-warning", role = "button" })
+</p>
+
+<p>
+    <!-- Form to search contact by email -->
     @using (Html.BeginForm("SearchByEmail", "Contact", FormMethod.Get, new { @class = "form-inline" }))
     {
         <div class="form-group">
-            <label for="email">Buscar por Email:</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Introduce el email" required />
-            <button type="submit" class="btn btn-info">Buscar</button>
+            <label for="email">Search by Email:</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required />
+            <button type="submit" class="btn btn-info">Search</button>
         </div>
     }
 </p>

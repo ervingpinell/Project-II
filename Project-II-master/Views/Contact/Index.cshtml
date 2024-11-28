@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Contact Management";
+}
+
+<h2>Contact Management</h2>
+
+<p>
+    <!-- Botón para mostrar todos los contactos -->
+    @Html.ActionLink("Mostrar Todos los Contactos", "ShowContacts", null, new { @class = "btn btn-primary", role = "button" })
+</p>
+
+<p>
+    <!-- Botón para crear un nuevo contacto -->
+    @Html.ActionLink("Crear un Nuevo Contacto", "Create", null, new { @class = "btn btn-success", role = "button" })
+</p>
+
+<p>
+    <!-- Formulario para buscar contacto por email -->
+    @using (Html.BeginForm("SearchByEmail", "Contact", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <div class="form-group">
+            <label for="email">Buscar por Email:</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Introduce el email" required />
+            <button type="submit" class="btn btn-info">Buscar</button>
+        </div>
+    }
+</p>

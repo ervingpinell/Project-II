@@ -6,12 +6,10 @@
 
 <h2>Index</h2>
 
-<!-- Button to create a new contact -->
 <p>
     @Html.ActionLink("Create New Contact", "Create", null, new { @class = "btn btn-primary" })
 </p>
 
-<!-- Table to display contact details -->
 <table class="table">
     <tr>
         <th>
@@ -57,14 +55,9 @@
             </td>
         </tr>
     }
+
 </table>
 
-<!-- Button to go back to the index -->
 <p>
     @Html.ActionLink("Go Back", "Index", null, new { @class = "btn btn-secondary" })
-</p>
-
-<!-- New button to show all payments -->
-<p>
-    @Html.ActionLink("Show All Payments", "ShowPayments", null, new { @class = "btn btn-warning" })
 </p>
