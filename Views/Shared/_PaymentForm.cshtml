@@ -1,0 +1,47 @@
+﻿@model Project_II.Models.Dto.PayoutDto
+
+@using (Html.BeginForm("Create", "Payout", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Payment</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, "Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.amount, new { htmlAttributes = new { @class = "form-control", @id = "amount", @type = "text", @placeholder = "Enter amount", @min = "0" } })
+                @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="hidden" name="contact_id" value="@ViewBag.ContactId" />
+                <br></br>
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <br></br>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    // Validación adicional con JavaScript para asegurar que el valor sea mayor que 0 y no contenga letras
+    document.getElementById("amount").addEventListener("input", function (event) {
+        var value = event.target.value;
+
+        // Validación de que el valor es un número mayor que 0
+        if (value === "") {
+            event.target.setCustomValidity("Amount is required.");
+        } else if (isNaN(value)) {
+            event.target.setCustomValidity("Please enter a valid number.");
+        } else if (parseFloat(value) <= 0) {
+            event.target.setCustomValidity("Amount must be greater than 0.");
+        } else {
+            event.target.setCustomValidity(""); // Si todo es válido, resetea el mensaje de error
+        }
+    });
+</script>

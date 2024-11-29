@@ -120,14 +120,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PayoutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Dao\ContactDao.cs" />
     <Compile Include="Models\Dao\LoginDao.cs" />
+    <Compile Include="Models\Dao\PayoutDao.cs" />
     <Compile Include="Models\Dto\AuthDto.cs" />
     <Compile Include="Models\Dto\LoginDto.cs" />
     <Compile Include="Models\Dto\ContactDto.cs" />
+    <Compile Include="Models\Dto\PayoutDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +189,12 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Contact\SearchByEmail.cshtml" />
     <Content Include="Views\Contact\Create.cshtml" />
+    <Content Include="Views\Shared\_PaymentForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Payouit\" />
+    <Folder Include="Views\Payout\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
