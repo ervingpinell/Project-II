@@ -193,7 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Payouit\" />
     <Folder Include="Views\Payout\" />
   </ItemGroup>
   <ItemGroup>

@@ -4,16 +4,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 
 namespace Project_II.Models.Dao
 {
 
     public class ContactDao
     {
+        public static string emaill;
         private readonly string apiBaseUrl = "https://saacapps.com/payout/contact.php"; // URL of the contacts API
 
         // Method to validate if the email address has the correct format
@@ -84,6 +87,8 @@ namespace Project_II.Models.Dao
         // Method to get a contact by email
         public async Task<ContactDto> GetContactByEmail(string email)
         {
+
+
             // Validate that the email address is in a correct format
             if (!IsValidEmail(email))
             {
@@ -91,7 +96,7 @@ namespace Project_II.Models.Dao
             }
 
             var client = new HttpClient();
-
+            emaill = email;
             // Check if there is a token available
             string token = LoginDao.Token;
 
@@ -105,6 +110,7 @@ namespace Project_II.Models.Dao
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
             // Create the URL with the email parameter
+
             string requestUrl = $"{apiBaseUrl}?email={HttpUtility.UrlEncode(email)}"; // Escape the email
 
             // Perform the GET request to get the contact

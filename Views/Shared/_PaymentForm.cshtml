@@ -19,10 +19,9 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="hidden" name="contact_id" value="@ViewBag.ContactId" />
-                <br></br>
+                <br>
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <br></br>
+                <br>
             </div>
         </div>
     </div>
@@ -45,3 +44,18 @@
         }
     });
 </script>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+

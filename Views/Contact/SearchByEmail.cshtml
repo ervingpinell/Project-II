@@ -50,17 +50,17 @@
         <dd>
             @Html.DisplayFor(model => model.client_id)
         </dd>
-        </dl>
-        </div>
-        <!-- New space for payment -->
+    </dl>
+</div>
+<!-- New space for payment -->
 
 
-        @{
-            ViewBag.ContactId = Model.id; // Enviar el ID del contacto a la vista parcial.
-        }
+@{
+    ViewBag.ContactId = Model.id; // Enviar el ID del contacto a la vista parcial.
+}
 
-        @Html.Partial("_PaymentForm", new Project_II.Models.Dto.PayoutDto())
+@Html.Partial("_PaymentForm", new Project_II.Models.Dto.PayoutDto())
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

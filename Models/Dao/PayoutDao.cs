@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+
 namespace Project_II.Models.Dao
 {
     public class PayoutDao
@@ -34,6 +35,7 @@ namespace Project_II.Models.Dao
                 throw new UnauthorizedAccessException("No valid token found.");
             }
 
+
             // URL of the contact creation endpoint
             string requestUrl = "https://saacapps.com/payout/payout.php";  // Adjust this URL according to your actual endpoint
 
@@ -57,7 +59,8 @@ namespace Project_II.Models.Dao
 
             if (response.IsSuccessStatusCode)
             {
-                // Deserialize the JSON response into a ContactDto object
+
+                // Deserialize the JSON response into a PayoutDto object
                 var result = JsonConvert.DeserializeObject<PayoutDto>(await response.Content.ReadAsStringAsync());
                 return result;
             }
@@ -65,8 +68,10 @@ namespace Project_II.Models.Dao
             {
                 // Capture the error content to diagnose the problem
                 var errorContent = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Error creating the contact: {response.StatusCode} - {response.ReasonPhrase}. Details: {errorContent}");
+                throw new Exception($"Error creating the payout: {response.StatusCode} - {response.ReasonPhrase}. Details: {errorContent}");
             }
         }
+
+
     }
 }
