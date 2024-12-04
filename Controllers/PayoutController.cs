@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using MySql.Data.MySqlClient; // Necesario para conectar con MySQL
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System.Web.Helpers;
 
 
 
@@ -57,8 +58,8 @@ namespace Project_II.Controllers
                             });
                         }
                     }
-              
-            }
+
+                }
 
                 // Pasar la lista de pagos a la vista
                 return View(payments);
