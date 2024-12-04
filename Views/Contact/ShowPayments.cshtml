@@ -1,0 +1,49 @@
+﻿@model List<Project_II.Models.Dto.PayoutDto>
+
+@{
+    ViewBag.Title = "Lista de Pagos";
+}
+
+<h2>Lista de Pagos</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Contacto ID</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Fecha de Creación</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var payment in Model)
+            {
+                <tr>
+                    <td>@payment.id</td>
+                    <td>@payment.contact_id</td>
+                    <td>@payment.amount</td>
+                    <td>@payment.status</td>
+                    <td>@payment.created_at.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <td>@payment.email</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center">No se encontraron pagos registrados.</td>
+            </tr>
+        }
+    </tbody>
+</table>

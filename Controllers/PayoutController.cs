@@ -5,6 +5,10 @@ using System.Data;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient; // Necesario para conectar con MySQL
+using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+
+
 
 namespace Project_II.Controllers
 {
@@ -26,8 +30,46 @@ namespace Project_II.Controllers
         // GET: Payout/Details/5
         public async Task<ActionResult> ShowPayments()
         {
-            return View();
+            try
+            {
+                // Cadena de conexión
+                string connectionString = "Server=localhost;Database=payments_db;Uid=root;Pwd=;";
+                List<PayoutDto> payments = new List<PayoutDto>();
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+                    string query = "SELECT id, contact_id, amount, status, created_at, email FROM payouts";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            payments.Add(new PayoutDto
+                            {
+                                id = reader.GetInt32("id"),
+                                contact_id = reader.GetInt32("contact_id"),
+                                amount = reader.GetDecimal("amount"),
+                                status = reader.GetString("status"),
+                                created_at = reader.GetDateTime("created_at"),
+                                email = reader.GetString("email")
+                            });
+                        }
+                    }
+              
+            }
+
+                // Pasar la lista de pagos a la vista
+                return View(payments);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error al obtener los pagos: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
+
 
         // GET: Payout/Create
         public ActionResult Create()
