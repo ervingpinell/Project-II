@@ -1,18 +1,15 @@
 ﻿using Project_II.Models.Dto;
 using Project_II.Models.Dao;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Data;
 using System.Threading.Tasks;
-using System.Web.Helpers;
+using System.Web.Mvc;
+using MySql.Data.MySqlClient; // Necesario para conectar con MySQL
 
 namespace Project_II.Controllers
 {
     public class PayoutController : Controller
     {
-
         private readonly PayoutDao _payoutDao;
 
         public PayoutController()
@@ -29,9 +26,7 @@ namespace Project_II.Controllers
         // GET: Payout/Details/5
         public async Task<ActionResult> ShowPayments()
         {
-
-                return View();
-            
+            return View();
         }
 
         // GET: Payout/Create
@@ -53,21 +48,39 @@ namespace Project_II.Controllers
                     newPayout.email = ContactDao.emaill;
                     PayoutDto createdPayout = await payoutDao.CreatePayoutAsync(newPayout);
                     TempData["SuccessMessage"] = "Transaction Done";
-             
+
+                    // Lógica para guardar en la base de datos
+                    string connectionString = "Server=localhost;Database=payments_db;Uid=root;Pwd=;";
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    {
+                        await connection.OpenAsync();
+                        string query = @"INSERT INTO payments (id, contact_id, amount, status, created_at, email) 
+                                         VALUES (@id, @contact_id, @amount, @status, @created_at, @email)";
+
+                        using (MySqlCommand command = new MySqlCommand(query, connection))
+                        {
+                            command.Parameters.AddWithValue("@id", createdPayout.id);
+                            command.Parameters.AddWithValue("@contact_id", createdPayout.contact_id);
+                            command.Parameters.AddWithValue("@amount", createdPayout.amount);
+                            command.Parameters.AddWithValue("@status", createdPayout.status);
+                            command.Parameters.AddWithValue("@created_at", createdPayout.created_at);
+                            command.Parameters.AddWithValue("@email", createdPayout.email);
+
+                            await command.ExecuteNonQueryAsync();
+                        }
+                    }
+
                     return RedirectToAction("SearchByEmail", "Contact", new { email = ContactDao.emaill });
                 }
-
                 else
                 {
-
                     // Si el modelo no es válido, establecer un mensaje de error en TempData
                     TempData["ErrorMessage"] = "No se pudo realizar la transacción, intentelo de nuevo";
 
                     // Redirigir a la página anterior
-                    return RedirectToAction("SearchByEmail", "Contact", new {email = ContactDao.emaill});
+                    return RedirectToAction("SearchByEmail", "Contact", new { email = ContactDao.emaill });
                 }
             }
-
             catch (Exception ex)
             {
                 // Manejar el error y redirigir a la página anterior con un mensaje de error
@@ -79,4 +92,3 @@ namespace Project_II.Controllers
         }
     }
 }
-
