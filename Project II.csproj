@@ -241,12 +241,11 @@
     <Content Include="Views\Contact\SearchByEmail.cshtml" />
     <Content Include="Views\Contact\Create.cshtml" />
     <Content Include="Views\Shared\_PaymentForm.cshtml" />
-    <Content Include="Views\Contact\ShowPayments.cshtml" />
+    <Content Include="Views\Payout\ShowPayments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\DatabaseConnection\" />
-    <Folder Include="Views\Payout\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

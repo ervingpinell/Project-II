@@ -16,7 +16,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>#</th>
+            <th>Payment ID</th>
             <th>Contacto ID</th>
             <th>Monto</th>
             <th>Estado</th>
@@ -46,4 +46,5 @@
             </tr>
         }
     </tbody>
+    @Html.ActionLink("Return", "Index", "Contact", null, new { @class = "btn btn-warning", role = "button" })
 </table>

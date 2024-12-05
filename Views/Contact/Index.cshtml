@@ -16,7 +16,7 @@
 
 <p>
     <!-- Button to show all payments -->
-    @Html.ActionLink("Show All Payments", "ShowPayments", null, new { @class = "btn btn-warning", role = "button" })
+    @Html.ActionLink("Show All Payments", "ShowPayments", "Payout", null, new { @class = "btn btn-warning", role = "button" })
 
 </p>
 
@@ -31,3 +31,9 @@
         </div>
     }
 </p>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}

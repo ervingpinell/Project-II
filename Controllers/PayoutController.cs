@@ -40,7 +40,7 @@ namespace Project_II.Controllers
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     await connection.OpenAsync();
-                    string query = "SELECT id, contact_id, amount, status, created_at, email FROM payouts";
+                    string query = "SELECT id, contact_id, amount, status, created_at, email FROM payments";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
@@ -67,7 +67,7 @@ namespace Project_II.Controllers
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "Error al obtener los pagos: " + ex.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Contact");
             }
         }
 
@@ -101,13 +101,15 @@ namespace Project_II.Controllers
                                          VALUES (@id, @contact_id, @amount, @status, @created_at, @email)";
 
                         using (MySqlCommand command = new MySqlCommand(query, connection))
+
                         {
+                            DateTime dateAdded = DateTime.Now;
                             command.Parameters.AddWithValue("@id", createdPayout.id);
                             command.Parameters.AddWithValue("@contact_id", createdPayout.contact_id);
                             command.Parameters.AddWithValue("@amount", createdPayout.amount);
                             command.Parameters.AddWithValue("@status", createdPayout.status);
-                            command.Parameters.AddWithValue("@created_at", createdPayout.created_at);
-                            command.Parameters.AddWithValue("@email", createdPayout.email);
+                            command.Parameters.AddWithValue("@created_at", dateAdded);
+                            command.Parameters.AddWithValue("@email", newPayout.email);
 
                             await command.ExecuteNonQueryAsync();
                         }
