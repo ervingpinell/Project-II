@@ -20,7 +20,8 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <br>
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Pay" class="btn btn-success" />
+                <button type="button" class="btn btn-danger" id="cancelButton">Cancel</button>
                 <br>
             </div>
         </div>
@@ -28,11 +29,11 @@
 }
 
 <script>
-    // Validación adicional con JavaScript para asegurar que el valor sea mayor que 0 y no contenga letras
+    // JS validation
     document.getElementById("amount").addEventListener("input", function (event) {
         var value = event.target.value;
 
-        // Validación de que el valor es un número mayor que 0
+        // JS numbers validations
         if (value === "") {
             event.target.setCustomValidity("Amount is required.");
         } else if (isNaN(value)) {
@@ -40,8 +41,14 @@
         } else if (parseFloat(value) <= 0) {
             event.target.setCustomValidity("Amount must be greater than 0.");
         } else {
-            event.target.setCustomValidity(""); // Si todo es válido, resetea el mensaje de error
+            event.target.setCustomValidity(""); // if all works, reset the validation messages
         }
+    });
+
+    // Cancelation button
+    document.getElementById("cancelButton").addEventListener("click", function () {
+        document.getElementById("amount").value = ""; // empty the label
+        document.getElementById("amount").setCustomValidity(""); // resed validation messages
     });
 </script>
 
@@ -58,4 +65,3 @@
         @TempData["ErrorMessage"]
     </div>
 }
-

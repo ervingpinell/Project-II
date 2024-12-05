@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using Project_II.Models.Dto;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,61 @@ namespace Project_II.Models.Dao
             }
         }
 
+        public async Task InsertPaymentAsync(PayoutDto createdPayout, string email)
+        {
+            string connectionString = "Server=localhost;Database=payments_db;Uid=root;Pwd=;";
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                string query = @"INSERT INTO payments (id, contact_id, amount, status, created_at, email) 
+                                         VALUES (@id, @contact_id, @amount, @status, @created_at, @email)";
 
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+
+                {
+                    DateTime dateAdded = DateTime.Now;
+                    createdPayout.status = "Sucess";
+                    command.Parameters.AddWithValue("@id", createdPayout.id);
+                    command.Parameters.AddWithValue("@contact_id", createdPayout.contact_id);
+                    command.Parameters.AddWithValue("@amount", createdPayout.amount);
+                    command.Parameters.AddWithValue("@status", createdPayout.status);
+                    command.Parameters.AddWithValue("@created_at", dateAdded);
+                    command.Parameters.AddWithValue("@email", email);
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+
+        public async Task<List<PayoutDto>> GetPaymentsAsync()
+        {
+            var payments = new List<PayoutDto>();
+
+            using (var connection = new MySqlConnection(DatabaseConnection.connectionString))
+            {
+                await connection.OpenAsync();
+                string query = "SELECT id, contact_id, amount, status, created_at, email FROM payments";
+
+                using (var command = new MySqlCommand(query, connection))
+                using (var reader = (MySqlDataReader)await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        payments.Add(new PayoutDto
+                        {
+                            id = reader.GetInt32("id"),
+                            contact_id = reader.GetInt32("contact_id"),
+                            amount = reader.GetDecimal("amount"),
+                            status = reader.GetString("status"),
+                            created_at = reader.GetDateTime("created_at"),
+                            email = reader.GetString("email")
+                        });
+                    }
+                }
+            }
+
+            return payments;
+        }
     }
 }
