@@ -34,7 +34,7 @@ namespace Project_II.Controllers
             try
             {
                 List<PayoutDto> payments = await _payoutDao.GetPaymentsAsync();
-                // Pass the list of payments to the view
+                // Sent the list of payments to the view
                 return View(payments);
             }
             catch (Exception ex)

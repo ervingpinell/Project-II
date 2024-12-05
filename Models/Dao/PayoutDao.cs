@@ -75,8 +75,7 @@ namespace Project_II.Models.Dao
 
         public async Task InsertPaymentAsync(PayoutDto createdPayout, string email)
         {
-            string connectionString = "Server=localhost;Database=payments_db;Uid=root;Pwd=;";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(DatabaseConnection.connectionString))
             {
                 await connection.OpenAsync();
                 string query = @"INSERT INTO payments (id, contact_id, amount, status, created_at, email) 
