@@ -33,7 +33,7 @@ namespace Project_II.Controllers
         {
             try
             {
-                // Cadena de conexión
+                // Connection DB
                 string connectionString = "Server=localhost;Database=payments_db;Uid=root;Pwd=;";
                 List<PayoutDto> payments = new List<PayoutDto>();
 
@@ -61,7 +61,7 @@ namespace Project_II.Controllers
 
                 }
 
-                // Pasar la lista de pagos a la vista
+                // Pass the list of payments to the view
                 return View(payments);
             }
             catch (Exception ex)
@@ -84,7 +84,7 @@ namespace Project_II.Controllers
         {
             try
             {
-                // Verificar que el modelo es válido
+                // Verify that the model is valid
                 if (ModelState.IsValid)
                 {
                     var payoutDao = new PayoutDao();
@@ -92,7 +92,7 @@ namespace Project_II.Controllers
                     PayoutDto createdPayout = await payoutDao.CreatePayoutAsync(newPayout);
                     TempData["SuccessMessage"] = "Transaction Done";
 
-                    // Lógica para guardar en la base de datos
+                    // Logic to save to the database
                     string connectionString = "Server=localhost;Database=payments_db;Uid=root;Pwd=;";
                     using (MySqlConnection connection = new MySqlConnection(connectionString))
                     {
@@ -119,19 +119,19 @@ namespace Project_II.Controllers
                 }
                 else
                 {
-                    // Si el modelo no es válido, establecer un mensaje de error en TempData
+                    // If the model is not valid, set an error message in TempData
                     TempData["ErrorMessage"] = "No se pudo realizar la transacción, intentelo de nuevo";
 
-                    // Redirigir a la página anterior
+                    // Redirect to the previous page
                     return RedirectToAction("SearchByEmail", "Contact", new { email = ContactDao.emaill });
                 }
             }
             catch (Exception ex)
             {
-                // Manejar el error y redirigir a la página anterior con un mensaje de error
+                // Handle the error and redirect to the previous page with an error message
                 TempData["ErrorMessage"] = "No se pudo realizar la transacción: " + ex.Message;
 
-                // Redirigir a la página anterior
+                // Redirect to the previous page
                 return Redirect(Request.UrlReferrer.ToString());
             }
         }
